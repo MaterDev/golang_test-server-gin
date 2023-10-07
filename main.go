@@ -1,16 +1,15 @@
 package main
 
 import (
-	"net/http"
 	"github.com/gin-gonic/gin"
+	"github.com/materdev/golang_test-server-gin/src/handlers"
 )
 
 func main() {
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello World",
-		})
-	})
+	
+	// Handlers
+	r.GET("/healthcheck", handlers.HealthCheck)
+
 	r.Run() // Listen to default port 8080
 }
