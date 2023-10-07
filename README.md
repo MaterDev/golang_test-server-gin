@@ -39,5 +39,4 @@ golang-gin-server/
 ├── go.mod                         # Go modules file
 ├── go.sum                         # Go modules checksum
 └── README.md                      # Project documentation
-
 ```
