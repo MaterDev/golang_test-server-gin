@@ -6,7 +6,7 @@ dev:
 
 # Build the application
 build:
-	go build -o build src/cmd/server/main.go
+	go build -o build/main src/cmd/server/main.go
 
 # Run the application locally
 run:
