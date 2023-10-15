@@ -1,17 +1,24 @@
-# Use the official Golang image to create a build artifact.
-# This is based on Debian and sets the GOPATH to /go.
+# Use the official Golang image as the base image.
 FROM golang:1.20 as builder
 
-# Copy local code to the container image.
+# Set the working directory to /app.
 WORKDIR /app
+
+# Copy go.mod and go.sum files and download dependencies.
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy the entire project source code into the container.
 COPY . .
 
-# Build the command inside the container.
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /go/bin/main
+# Build the Go application inside the container.
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /app/build/main src/cmd/server/main.go
 
-# Use a minimal image to run the binary.
+# Use a minimal image as the final base image.
 FROM gcr.io/distroless/base-debian10
-COPY --from=builder /go/bin/main /go/bin/main
 
-# Run the web service on container startup.
-ENTRYPOINT ["/go/bin/main"]
+# Copy the binary from the builder stage.
+COPY --from=builder /app/build/main /app/main
+
+# Set the entry point for the container.
+ENTRYPOINT ["/app/main"]
