@@ -9,7 +9,7 @@ func main() {
 	r := gin.Default()
 	
 	// Handlers
-	r.GET("/healthcheck", routes.HealthCheck)
+	routes.RegisterHealthRoutes(r)
 
 	r.Run() // Listen to default port 8080
 }

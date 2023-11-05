@@ -2,7 +2,7 @@
 
 Golang test server (with Gin)
 
-## Suggested directory structure:
+## Suggested directory structure
 
 ```bash
 golang-gin-server/
