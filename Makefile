@@ -12,6 +12,10 @@ build:
 run:
 	go run src/cmd/server/main.go
 
+# Clean up the build directory
+clean:
+	rm -rf build/main
+
 # Build the Docker image
 docker-build:
 	docker build -t golang_test-server-gin .
